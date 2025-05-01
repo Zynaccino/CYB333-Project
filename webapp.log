@@ -1,0 +1,50 @@
+2025-04-18 08:03:12,147 - INFO - Server initialized on port 443
+2025-04-18 08:03:12,893 - DEBUG - Loading environment config: prod.yaml
+2025-04-18 08:03:14,235 - INFO - Connected to database: users-db.prod.internal
+2025-04-18 08:05:43,901 - INFO - User registration initiated: email=jane.doe@example.com
+2025-04-18 08:05:45,321 - DEBUG - Validation passed for new user: jane.doe@example.com
+2025-04-18 08:05:47,651 - INFO - Account created: user_id=4821
+2025-04-18 08:06:10,025 - INFO - Login attempt: user_id=4821
+2025-04-18 08:06:10,112 - INFO - Login successful: user_id=4821, session_id=bfe932ab
+2025-04-18 08:06:30,889 - DEBUG - API request: GET /api/profile user_id=4821
+2025-04-18 08:06:31,044 - INFO - Response: 200 OK, user_id=4821, route=/api/profile
+2025-04-18 08:06:58,772 - INFO - Logout: user_id=4821, session_id=bfe932ab
+2025-04-18 08:07:20,233 - INFO - Login attempt: user_id=4821
+2025-04-18 08:07:20,297 - ERROR - Login failed: user_id=4821, reason=incorrect password
+2025-04-18 08:07:21,145 - INFO - Login attempt: user_id=4821
+2025-04-18 08:07:21,217 - INFO - Login successful: user_id=4821, session_id=d1fc9981
+2025-04-18 08:07:45,611 - INFO - Login attempt: user_id=4821
+2025-04-18 08:07:45,700 - ERROR - Login failed: user_id=4821, reason=account locked
+2025-04-18 08:08:00,022 - DEBUG - API request: POST /api/order/create user_id=4821
+2025-04-18 08:08:00,876 - INFO - Order created: user_id=4821, order_id=99087, total=$49.99
+2025-04-18 08:08:15,112 - ERROR - Unauthorized access attempt: ip=192.168.10.105, route=/api/admin/users
+2025-04-18 08:08:31,092 - WARNING - Delayed response: route=/api/order/create, duration=2012ms
+2025-04-18 08:08:55,093 - DEBUG - API request: GET /api/orders/history user_id=4821
+2025-04-18 08:08:55,186 - INFO - Response: 200 OK, orders=1
+2025-04-18 08:09:12,222 - ERROR - API error: /api/orders/history, message='Database timeout'
+Traceback (most recent call last):
+  File "order_service.py", line 212, in fetch_order_history
+    response = db.query_orders(user_id)
+TimeoutError: Database did not respond
+2025-04-18 08:09:42,511 - ERROR - Unauthorized access attempt: ip=192.168.10.102, route=/admin/dashboard
+2025-04-18 08:10:13,602 - INFO - Background job started: name=sync_orders
+2025-04-18 08:10:14,891 - DEBUG - Syncing 348 new orders...
+2025-04-18 08:10:18,973 - INFO - Background job completed: name=sync_orders, status=success
+2025-04-18 08:10:32,012 - INFO - Login attempt: user_id=5190
+2025-04-18 08:10:32,102 - ERROR - Login failed: user_id=5190, reason=incorrect password
+2025-04-18 08:10:33,245 - INFO - Login attempt: user_id=5190
+2025-04-18 08:10:33,321 - ERROR - Login failed: user_id=5190, reason=incorrect password
+2025-04-18 08:10:45,775 - INFO - System check completed: all services healthy
+2025-04-18 08:11:22,941 - ERROR - API error: /api/order/create, message='Invalid payload: missing item_id'
+Traceback (most recent call last):
+  File "order_service.py", line 101, in create_order
+    item_id = payload['item_id']
+KeyError: 'item_id'
+2025-04-18 08:11:50,338 - ERROR - Unauthorized access attempt: ip=10.0.0.54, route=/api/finance/overview
+2025-04-18 08:12:04,000 - INFO - User password reset requested: email=alice@example.com
+2025-04-18 08:12:05,125 - INFO - Password reset email sent: email=alice@example.com
+2025-04-18 08:12:25,498 - ERROR - API error: /api/user/update, message='Unauthorized update attempt'
+Traceback (most recent call last):
+  File "user_service.py", line 58, in update_user
+    raise PermissionError("Unauthorized update attempt")
+PermissionError: Unauthorized update attempt
